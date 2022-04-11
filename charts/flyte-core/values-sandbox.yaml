@@ -39,14 +39,14 @@ db:
     database:
       port: 5432
       username: postgres
-      host: "postgresql.default.svc.cluster.local"
-      dbname: "datacatalog"
+      host: "postgresql"
+      dbname: "postgres"
   admin:
     database:
       port: 5432
       username: postgres
-      host: "postgresql.default.svc.cluster.local"
-      dbname: "flyteadmin"
+      host: "postgresql"
+      dbname: "postgres"
 
 configmap:
   console:
@@ -62,7 +62,7 @@ configmap:
         #  DEFAULT_ENV_VAR: VALUE
         default-cpus: 100m
         default-env-vars:
-          - FLYTE_AWS_ENDPOINT: "http://minio.default.svc.cluster.local:9000"
+          - FLYTE_AWS_ENDPOINT: "http://minio:9000"
           - FLYTE_AWS_ACCESS_KEY_ID: admin
           - FLYTE_AWS_SECRET_ACCESS_KEY: flyte
         default-memory: 200Mi

@@ -154,7 +154,7 @@ storage:
       auth_type: accesskey
       secret_key: miniostorage
       disable_ssl: true
-      endpoint: http://minio.{{ .Release.Namespace }}.svc.cluster.local:9000
+      endpoint: http://minio:9000
       region: us-east-1
   signedUrl:
     stowConfigOverride:

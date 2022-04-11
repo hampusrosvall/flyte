@@ -19,23 +19,24 @@ This guide helps you set up Flyte from scratch, on any kubernetes cluster, It wi
 .. code-block::
 
  helm repo add flyteorg https://helm.flyte.org
- helm repo add bitnami https://charts.bitnami.com/bitnami
 
-2. Install Minio deployment in kubernetes cluster
-
-.. code-block::
-
- helm install minio bitnami/minio -n default --set auth.rootPassword="flyte"
-
-3. Install Postgres deployment in kubernetes cluster
+2. Install Minio & Postgres deployment in kubernetes cluster
 
 .. code-block::
 
- helm install postgresql bitnami/postgresql -n default --set auth.postgresPassword="flyte"
+ kubectl create ns flyte
+ kubectl apply -f https://raw.githubusercontent.com/flyteorg/flyte/master/deployment/sandbox/flyte_helm_generated.yaml -n flyte
 
-4. Create a values-override.yaml file
+.. note::
+	If you are trying it locally with Kind/k3d then you need to port-forward the api port(9000), It is required for [fast registration](https://docs.flyte.org/projects/cookbook/en/latest/auto/deployment/deploying_workflows.html#register-your-workflows-and-tasks). And you can customize your [minio chart](https://github.com/bitnami/charts/tree/master/bitnami/minio) as per your need
+
+	.. code-block::
+
+	kubectl port-forward svc/minio 30084:9000
+
+4. Install Flyte Helm chart
 
 .. code-block::
 
- helm install flyte flyteorg/flyte-core -n default -f https://raw.githubusercontent.com/flyteorg/flyte/master/charts/flyte-core/values-sandbox.yaml
+ helm install flyte flyteorg/flyte-core -n default -f https://raw.githubusercontent.com/flyteorg/flyte/sandbox-deployment/charts/flyte-core/values-sandbox.yaml
 
